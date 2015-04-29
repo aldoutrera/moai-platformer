@@ -12,13 +12,13 @@ local resource_definitions = {
   },
   farAway = {
     type = RESOURCE_TYPE_IMAGE,
-    fileName = 'images/parallax-mountain-bg.png',
-    width = 625, height = 205
+    fileName = 'images/parallax-mountain-montain-far.png',
+    width = 272, height = 160
   },
   main = {
     type = RESOURCE_TYPE_IMAGE,
-    fileName = 'images/parallax-mountain-bg.png',
-    width = 975, height = 171
+    fileName = 'images/parallax-mountain-foreground-trees.png',
+    width = 544, height = 160
   },
 }
 
