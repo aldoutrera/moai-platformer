@@ -1,5 +1,8 @@
 module("InputManager", package.seeall)
 
+local pointerX, pointerY = 0, 0
+local previousX, previousY = 0, 0
+
 function InputManager:initialize()
   if MOAIInputMgr.device.pointer then
     local pointerCallback = function(x, y)
@@ -13,6 +16,18 @@ function InputManager:initialize()
 
     MOAIInputMgr.device.pointer:setCallback(pointerCallback)
   end
+end
+
+function InputManager:position()
+  return pointerX, pointerY
+end
+
+function InputManager:previousPosition()
+  return previousX, previousY
+end
+
+function InputManager:deltaPosition()
+  return pointerX - previousX, previousY - pointerY
 end
 
 function InputManager:isDown()
