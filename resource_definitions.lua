@@ -13,3 +13,7 @@ end
 function ResourceDefinitions:remove(name)
   definitions[name] = nil
 end
+
+function ResourceDefinitions:setDefinitions(user_defined_definitions)
+  definitions = user_defined_definitions
+end
