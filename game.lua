@@ -10,12 +10,22 @@ local resource_definitions = {
     fileName = 'images/parallax-mountain-bg.png',
     width = 272, height = 160
   },
-  farAway = {
+  mountain_far_away = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-montain-far.png',
     width = 272, height = 160
   },
-  main = {
+  mountains = {
+    type = RESOURCE_TYPE_IMAGE,
+    fileName = 'images/parallax-mountain-mountains.png',
+    width = 272, height = 160
+  },
+  mountain_trees = {
+    type = RESOURCE_TYPE_IMAGE,
+    fileName = 'images/parallax-mountain-trees.png',
+    width = 544, height = 160
+  },
+  foreground_trees = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-foreground-trees.png',
     width = 544, height = 160
@@ -25,13 +35,21 @@ local resource_definitions = {
 local background_objects = {
   background = {
     position = { 0, 0 },
-    parallax = { 0.05, 0.05 }
+    parallax = { 0, 0 }
   },
-  farAway = {
+  mountain_far_away = {
     position = { 0, 0 },
-    parallax = { 0.1, 0.1 }
+    parallax = { 0.0005, 0.0005 }
   },
-  main = {
+  mountains = {
+    position = { 0, 0 },
+    parallax = { 0.1, 0.1}
+  },
+  mountain_trees = {
+    position = { 0, 0 },
+    parallax = { 0.5, 0.5}
+  },
+  foreground_trees = {
     position = { 0, 0 },
     parallax = { 1, 1}
   },
@@ -82,8 +100,10 @@ end
 function Game:setupLayers()
   self.layers = {}
   self.layers.background = MOAILayer2D.new()
-  self.layers.farAway = MOAILayer2D.new()
-  self.layers.main = MOAILayer2D.new()
+  self.layers.mountain_far_away = MOAILayer2D.new()
+  self.layers.mountains = MOAILayer2D.new()
+  self.layers.mountain_trees = MOAILayer2D.new()
+  self.layers.foreground_trees = MOAILayer2D.new()
 
   for key, layer in pairs(self.layers) do
     layer:setViewport(viewport)
@@ -92,8 +112,10 @@ function Game:setupLayers()
 
   local renderTable = {
     self.layers.background,
-    self.layers.farAway,
-    self.layers.main
+    self.layers.mountain_far_away,
+    self.layers.mountains,
+    self.layers.mountain_trees,
+    self.layers.foreground_trees
   }
 
   MOAIRenderMgr.setRenderTable(renderTable)
