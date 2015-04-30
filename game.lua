@@ -24,21 +24,21 @@ local resource_definitions = {
 
 local background_objects = {
   background = {
-    position = { 0, 70 },
+    position = { 0, 0 },
     parallax = { 0.05, 0.05 }
   },
   farAway = {
-    position = { 0, 50 },
+    position = { 0, 0 },
     parallax = { 0.1, 0.1 }
   },
   main = {
-    position = { 0, -75 }
+    position = { 0, 0 },
     parallax = { 1, 1}
   },
 }
 
 function Game:start()
-  self.initialize()
+  self:initialize()
 
   while(true) do
     self:processInput()
@@ -47,12 +47,12 @@ function Game:start()
 end
 
 function Game:initialize()
-  self.camera = MOAICamera2D.new()
-  self.setupLayers()
-
   ResourceDefinitions:setDefinitions(resource_definitions)
+  InputManager:initialize()
 
-  self.loadBackground()
+  self.camera = MOAICamera2D.new()
+  self:setupLayers()
+  self:loadBackground()
 end
 
 function Game:loadBackground()
@@ -96,5 +96,5 @@ function Game:setupLayers()
     self.layers.main
   }
 
-  MOAIRenderMgr.setRendereTable(renderTable)
+  MOAIRenderMgr.setRenderTable(renderTable)
 end
