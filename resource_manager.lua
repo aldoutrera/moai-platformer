@@ -17,7 +17,7 @@ function ResourceManager:loaded(name)
 end
 
 function ResourceManager:load(name)
-  local resourceDefinition = resourceDefinitions:get(name)
+  local resourceDefinition = ResourceDefinitions:get(name)
   if not resourceDefinition then
     print("ERROR: Missing resource definition for " .. name)
   else
