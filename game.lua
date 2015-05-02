@@ -2,6 +2,7 @@ require 'resource_definitions'
 require 'resource_manager'
 require 'input_manager'
 require 'character'
+require 'physics_manager'
 
 module("Game", package.seeall)
 
@@ -79,6 +80,7 @@ function Game:initialize()
   self:setupLayers()
   self:loadBackground()
 
+  PhysicsManager:initialize(self.layers.walkBehind)
   Character:initialize(self.layers.foreground_trees)
 end
 
@@ -113,6 +115,7 @@ function Game:setupLayers()
   self.layers.mountains = MOAILayer2D.new()
   self.layers.mountain_trees = MOAILayer2D.new()
   self.layers.foreground_trees = MOAILayer2D.new()
+  self.layers.walkBehind = MOAILayer2D.new()
 
   for key, layer in pairs(self.layers) do
     layer:setViewport(viewport)
@@ -124,7 +127,8 @@ function Game:setupLayers()
     self.layers.mountain_far_away,
     self.layers.mountains,
     self.layers.mountain_trees,
-    self.layers.foreground_trees
+    self.layers.foreground_trees,
+    self.layers.walkBehind,
   }
 
   MOAIRenderMgr.setRenderTable(renderTable)
