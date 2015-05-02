@@ -42,6 +42,7 @@ function Character:initialize(layer)
   end
 
   self:startAnimation('run')
+  self:initializePhysics()
 end
 
 function Character:addAnimation(name, startFrame, frameCount, time, mode)
@@ -73,4 +74,12 @@ function Character:startAnimation(name)
   self.currentAnimation = self:getAnimation(name)
   self.currentAnimation:start()
   return self.currentAnimation
+end
+
+function Character:initializePhysics()
+  self.physics = {}
+  self.physics.body = PhysicsManager.world:addBody(MOAIBox2DBody.DYNAMIC)
+  self.physics.body:setTransform(unpack(character_object.position))
+  self.physics.fixture = self.physics.body:addRect(-8, -8, 8, 8)
+  self.prop:setParent(self.physics.body)
 end
