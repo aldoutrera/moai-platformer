@@ -12,7 +12,7 @@ local character_object = {
     run = {
       startFrame = 1,
       frameCount = 3,
-      time = 0.03,
+      time = 0.1,
       mode = MOAITimer.LOOP,
     },
     jump = {
