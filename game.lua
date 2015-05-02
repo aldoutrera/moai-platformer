@@ -1,6 +1,7 @@
 require 'resource_definitions'
 require 'resource_manager'
 require 'input_manager'
+require 'character'
 
 module("Game", package.seeall)
 
@@ -8,27 +9,33 @@ local resource_definitions = {
   background = {
     type =  RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-bg.png',
-    width = 272, height = 160
+    width = 272, height = 160,
   },
   mountain_far_away = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-montain-far.png',
-    width = 272, height = 160
+    width = 272, height = 160,
   },
   mountains = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-mountains.png',
-    width = 272, height = 160
+    width = 272, height = 160,
   },
   mountain_trees = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-trees.png',
-    width = 544, height = 160
+    width = 544, height = 160,
   },
   foreground_trees = {
     type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-foreground-trees.png',
-    width = 544, height = 160
+    width = 544, height = 160,
+  },
+  character = {
+    type = RESOURCE_TYPE_TILED_IMAGE,
+    fileName = 'character/hero.png',
+    tileMapSize = { 3, 4 },
+    width = 48, height = 64,
   },
 }
 
@@ -71,6 +78,8 @@ function Game:initialize()
   self.camera = MOAICamera2D.new()
   self:setupLayers()
   self:loadBackground()
+
+  Character:initialize(self.layers.foreground_trees)
 end
 
 function Game:loadBackground()
