@@ -82,4 +82,59 @@ function Character:initializePhysics()
   self.physics.body:setTransform(unpack(character_object.position))
   self.physics.fixture = self.physics.body:addRect(-8, -8, 8, 8)
   self.prop:setParent(self.physics.body)
+
+  self.physics.fixture:setCollisionHandler(
+    onCollide,
+    MOAIBox2DArbiter.BEGIN
+  )
+end
+
+function Character:run(direction, keyDown)
+  if keyDown then
+    self.prop:setScl(-direction, 1)
+    velX, velY = self.physics.body:getLinearVelocity()
+    self.physics.body:setLinearVelocity(direction * 100, velY)
+
+    if (self.currentAnimation ~= self:getAnimation('run')) and not self.jumping then
+      self:startAnimation('run')
+    end
+  else
+    if not self.jumping then
+      self:stopMoving()
+    end
+  end
+end
+
+function Character:moveLeft(keyDown)
+  self:run(-1, keyDown)
+end
+
+function Character:moveRight(keyDown)
+  self:run(1, keyDown)
+end
+
+function Character:stopMoving()
+  if not self.jumping then
+    self.physics.body:setLinearVelocity(0, 0)
+    self:startAnimation('idle')
+  end
+end
+
+function Character:jump(keyDown)
+  if keyDown and not self.jumping then
+    self.physics.body:applyForce(0, 8000)
+    self.jumping = true
+    self.startAnimation('jump')
+  end
+end
+
+function Character:stopJumping()
+  self.jumping = false
+  self:stopMoving()
+end
+
+function onCollide(phase, fixtureA, fixtureB, arbiter)
+  if fixtureB == PhysicsManager.floor.fixture then
+    Character:stopJumping()
+  end
 end
