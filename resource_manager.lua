@@ -66,6 +66,13 @@ function ResourceManager:loadTiledImage(definition)
   tiledImage:setTexture(filePath)
   tiledImage:setSize(unpack(definition.tileMapSize))
 
+  if definition.width and definition.height then
+    local half_width = definition.width / 2
+    local half_height = definition.height / 2
+    
+    tiledImage:setRect(-half_width, -half_height, half_width, half_height)
+  end
+
   return tiledImage
 end
 
