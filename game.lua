@@ -36,7 +36,7 @@ local resource_definitions = {
     type = RESOURCE_TYPE_TILED_IMAGE,
     fileName = 'character/hero.png',
     tileMapSize = { 3, 4 },
-    width = 48, height = 64,
+    width = 16, height = 16,
   },
 }
 
