@@ -67,7 +67,7 @@ function Game:start()
   self:initialize()
 
   while(true) do
-    self:processInput()
+--    self:processInput()
     coroutine.yield()
   end
 end
@@ -102,11 +102,11 @@ function Game:loadBackground()
 
 end
 
-function Game:processInput()
-  local x, y = InputManager:deltaPosition()
+--function Game:processInput()
+--  local x, y = InputManager:deltaPosition()
 
-  self.camera:moveLoc(x, 0, 0.5, MOAIEaseType.LINEAR)
-end
+--  self.camera:moveLoc(x, 0, 0.5, MOAIEaseType.LINEAR)
+--end
 
 function Game:setupLayers()
   self.layers = {}
@@ -132,4 +132,10 @@ function Game:setupLayers()
   }
 
   MOAIRenderMgr.setRenderTable(renderTable)
+end
+
+function Game:keyPressed(key, down)
+  if key == 'right' then Character:moveRight(down) end
+  if key == 'left' then Character:moveLeft(down) end
+  if key == 'up' then Character:jump(down) end
 end
