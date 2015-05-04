@@ -2,8 +2,8 @@ module("PhysicsManager", package.seeall)
 
 function PhysicsManager:initialize(layer)
   self.world = MOAIBox2DWorld.new()
-  self.world:setUnitsToMeters(1/38)
-  self.world:setGravity(0, -10)
+  self.world:setUnitsToMeters(1/18)
+  self.world:setGravity(0, -200)
   self.world:start()
 
   if layer then
