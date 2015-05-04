@@ -93,15 +93,13 @@ function Character:run(direction, keyDown)
   if keyDown then
     self.prop:setScl(direction, 1)
     velX, velY = self.physics.body:getLinearVelocity()
-    self.physics.body:setLinearVelocity(direction * 100, velY)
+    self.physics.body:setLinearVelocity(direction * 100, velY / 4)
 
     if (self.currentAnimation ~= self:getAnimation('run')) and not self.jumping then
       self:startAnimation('run')
     end
   else
-    if not self.jumping then
-      self:stopMoving()
-    end
+    self:stopMoving()
   end
 end
 
@@ -115,9 +113,12 @@ end
 
 function Character:stopMoving()
   if not self.jumping then
-    self.physics.body:setLinearVelocity(0, 0)
+    self:startAnimation('idle')
+  else
     self:startAnimation('idle')
   end
+
+  self.physics.body:setLinearVelocity(0, 0)
 end
 
 function Character:jump(keyDown)
@@ -131,7 +132,12 @@ end
 
 function Character:stopJumping()
   self.jumping = false
-  self:stopMoving()
+  x, y = self.physics.body:getLinearVelocity()
+  print("X: " .. x)
+  print("Y: " .. y)
+  if x == 0 and y == 0 then
+    self:stopMoving()
+  end
 end
 
 function onCollide(phase, fixtureA, fixtureB, arbiter)
