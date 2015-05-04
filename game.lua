@@ -3,6 +3,7 @@ require 'resource_manager'
 require 'input_manager'
 require 'character'
 require 'physics_manager'
+require 'hud'
 
 module("Game", package.seeall)
 
@@ -38,6 +39,13 @@ local resource_definitions = {
     tileMapSize = { 3, 4 },
     width = 16, height = 16,
   },
+  hudFont = {
+    type = RESOURCE_TYPE_FONT,
+    fileName = 'fonts/arialbd.ttf',
+    glyphs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789,.?!",
+    fontSize = 26,
+    dpi = 160,
+  },
 }
 
 local background_objects = {
@@ -63,11 +71,27 @@ local background_objects = {
   },
 }
 
+local scene_objects = {
+  floor = {
+    type = MOAIBox2DBody.STATIC,
+    position = { 0, -WORLD_RESOLUTION_Y / 2 },
+    friction = 0,
+    size = { 2 * WORLD_RESOLUTION_X, 10 },
+  },
+  platform_1 = {
+    type = MOAIBox2DBody.STATIC,
+    position = { 50, -10 },
+    friction = 0,
+    size = { 100, 20 },
+  },
+}
+
 function Game:start()
   self:initialize()
 
   while(true) do
 --    self:processInput()
+    HUD:update()
     coroutine.yield()
   end
 end
@@ -81,7 +105,11 @@ function Game:initialize()
   self:loadBackground()
 
   PhysicsManager:initialize(self.layers.walkBehind)
+
+  self:loadScene()
+
   Character:initialize(self.layers.foreground_trees)
+  HUD:initialize()
 end
 
 function Game:loadBackground()
@@ -138,4 +166,30 @@ function Game:keyPressed(key, down)
   if key == 'right' then Character:moveRight(down) end
   if key == 'left' then Character:moveLeft(down) end
   if key == 'up' then Character:jump(down) end
+end
+
+function Game:loadScene()
+  self.objects = {}
+
+  for key, attr in pairs(scene_objects) do
+    local body = PhysicsManager.world:addBody(attr.type)
+    x, y = unpack(attr.position)
+    body:setTransform(unpack(attr.position))
+    width, height = unpack(attr.size)
+
+    local fixture = body:addRect(-width / 2, -height / 2, width / 2, height / 2)
+    fixture:setFriction(attr.friction)
+
+    self.objects[key] = { body = body, fixture = fixture }
+  end
+end
+
+function Game:belongsToScene(fixture)
+  for key, object in pairs(self.objects) do
+    if object.fixture == fixture then
+      return true
+    end
+  end
+
+  return false
 end
