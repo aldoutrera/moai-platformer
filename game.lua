@@ -4,6 +4,7 @@ require 'input_manager'
 require 'character'
 require 'physics_manager'
 require 'hud'
+require 'audio_manager'
 
 module("Game", package.seeall)
 
@@ -35,9 +36,9 @@ local resource_definitions = {
   },
   character = {
     type = RESOURCE_TYPE_TILED_IMAGE,
-    fileName = 'character/hero.png',
-    tileMapSize = { 3, 4 },
-    width = 16, height = 16,
+    fileName = 'character/warrior.png',
+    tileMapSize = { 10, 10 },
+    width = 32, height = 32,
   },
   hudFont = {
     type = RESOURCE_TYPE_FONT,
@@ -110,6 +111,7 @@ function Game:initialize()
 
   Character:initialize(self.layers.foreground_trees)
   HUD:initialize()
+  AudioManager:initialize()
 end
 
 function Game:loadBackground()
