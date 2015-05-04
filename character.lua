@@ -4,20 +4,20 @@ local character_object = {
   position = { 0, 0 },
   animations = {
     idle = {
-      startFrame = 8,
-      frameCount = 1,
+      startFrame = 1,
+      frameCount = 10,
       time = 0.1,
       mode = MOAITimer.LOOP,
     },
     run = {
-      startFrame = 1,
-      frameCount = 3,
+      startFrame = 21,
+      frameCount = 10,
       time = 0.1,
       mode = MOAITimer.LOOP,
     },
     jump = {
-      startFrame = 4,
-      frameCount = 3,
+      startFrame = 27,
+      frameCount = 1,
       time = 0.1,
       mode = MOAITimer.NORMAL
     },
@@ -80,7 +80,7 @@ function Character:initializePhysics()
   self.physics = {}
   self.physics.body = PhysicsManager.world:addBody(MOAIBox2DBody.DYNAMIC)
   self.physics.body:setTransform(unpack(character_object.position))
-  self.physics.fixture = self.physics.body:addRect(-8, -8, 8, 8)
+  self.physics.fixture = self.physics.body:addRect(-16, -16, 16, 16)
   self.prop:setParent(self.physics.body)
 
   self.physics.fixture:setCollisionHandler(
@@ -91,7 +91,7 @@ end
 
 function Character:run(direction, keyDown)
   if keyDown then
-    self.prop:setScl(-direction, 1)
+    self.prop:setScl(direction, 1)
     velX, velY = self.physics.body:getLinearVelocity()
     self.physics.body:setLinearVelocity(direction * 100, velY)
 
@@ -122,6 +122,7 @@ end
 
 function Character:jump(keyDown)
   if keyDown and not self.jumping then
+    AudioManager:play('jump')
     self.physics.body:applyForce(0, 800)
     self.jumping = true
     self:startAnimation('jump')
