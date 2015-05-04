@@ -11,9 +11,9 @@ function PhysicsManager:initialize(layer)
     layer:setUnderlayTable({world})
   end
 
-  self.floor = {}
-  self.floor.body = self.world:addBody(MOAIBox2DBody.STATIC)
-  self.floor.body:setTransform(0, (-WORLD_RESOLUTION_Y/2) + 10)
-  self.floor.fixture = self.floor.body:addRect(-WORLD_RESOLUTION_X / 2 + 10, -5, WORLD_RESOLUTION_X / 2 - 10, 5)
-  self.floor.fixture:setFriction(0)
+  -- self.floor = {}
+  -- self.floor.body = self.world:addBody(MOAIBox2DBody.STATIC)
+  -- self.floor.body:setTransform(0, (-WORLD_RESOLUTION_Y/2) + 10)
+  -- self.floor.fixture = self.floor.body:addRect(-WORLD_RESOLUTION_X / 2 + 10, -5, WORLD_RESOLUTION_X / 2 - 10, 5)
+  -- self.floor.fixture:setFriction(0)
 end
