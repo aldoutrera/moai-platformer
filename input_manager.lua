@@ -1,6 +1,6 @@
 module("InputManager", package.seeall)
 
-function InputManager.initialize()
+function InputManager:initialize()
 
   function onKeyboardEvent(key, down)
     if key == 119 then key = 'up' end
