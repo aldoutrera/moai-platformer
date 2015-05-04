@@ -123,7 +123,7 @@ end
 function Character:jump(keyDown)
   if keyDown and not self.jumping then
     AudioManager:play('jump')
-    self.physics.body:applyForce(0, 800)
+    self.physics.body:applyForce(0, 4000)
     self.jumping = true
     self:startAnimation('jump')
   end
