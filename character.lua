@@ -134,7 +134,10 @@ function Character:stopJumping()
 end
 
 function onCollide(phase, fixtureA, fixtureB, arbiter)
-  if fixtureB == PhysicsManager.floor.fixture then
+  if Game:belongsToScene(fixtureB) then
     Character:stopJumping()
   end
+  -- if fixtureB == PhysicsManager.floor.fixture then
+  --   Character:stopJumping()
+  -- end
 end
