@@ -99,8 +99,15 @@ function Character:run(direction, keyDown)
       self:startAnimation('run')
     end
   else
-    self:stopMoving()
+    self:stopRunning()
   end
+end
+
+function Character:stopRunning()
+  if not self.jumping then
+    self:startAnimation('idle')
+  end
+  self.physics.body:setLinearVelocity(0, 0)
 end
 
 function Character:moveLeft(keyDown)
@@ -109,16 +116,6 @@ end
 
 function Character:moveRight(keyDown)
   self:run(1, keyDown)
-end
-
-function Character:stopMoving()
-  if not self.jumping then
-    self:startAnimation('idle')
-  else
-    self:startAnimation('idle')
-  end
-
-  self.physics.body:setLinearVelocity(0, 0)
 end
 
 function Character:jump(keyDown)
@@ -132,12 +129,7 @@ end
 
 function Character:stopJumping()
   self.jumping = false
-  x, y = self.physics.body:getLinearVelocity()
-  print("X: " .. x)
-  print("Y: " .. y)
-  if x == 0 and y == 0 then
-    self:stopMoving()
-  end
+  self:startAnimation('idle')
 end
 
 function onCollide(phase, fixtureA, fixtureB, arbiter)
