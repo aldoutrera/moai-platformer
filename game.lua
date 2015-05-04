@@ -91,8 +91,8 @@ function Game:start()
   self:initialize()
 
   while(true) do
---    self:processInput()
     HUD:update()
+    self:updateCamera()
     coroutine.yield()
   end
 end
@@ -165,6 +165,7 @@ function Game:setupLayers()
 end
 
 function Game:keyPressed(key, down)
+  print(key)
   if key == 'right' then Character:moveRight(down) end
   if key == 'left' then Character:moveLeft(down) end
   if key == 'up' then Character:jump(down) end
@@ -194,4 +195,9 @@ function Game:belongsToScene(fixture)
   end
 
   return false
+end
+
+function Game:updateCamera()
+  x, y = Character.physics.body:getPosition()
+  Game.camera:setLoc(x, 0, 0.1, MOAIEaseType.LINEAR)
 end
