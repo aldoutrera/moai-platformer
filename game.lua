@@ -165,7 +165,6 @@ function Game:setupLayers()
 end
 
 function Game:keyPressed(key, down)
-  print(key)
   if key == 'right' then Character:moveRight(down) end
   if key == 'left' then Character:moveLeft(down) end
   if key == 'up' then Character:jump(down) end
