@@ -30,9 +30,13 @@ local resource_definitions = {
     width = 544, height = 160,
   },
   foreground_trees = {
-    type = RESOURCE_TYPE_IMAGE,
+    type = RESOURCE_TYPE_TILED_IMAGE,
     fileName = 'images/parallax-mountain-foreground-trees.png',
-    width = 544, height = 160,
+    tileMapSize = { 1, 1 },
+    repeatable = {
+      x = true,
+      y = false,
+    },
   },
   character = {
     type = RESOURCE_TYPE_TILED_IMAGE,
@@ -165,7 +169,6 @@ function Game:setupLayers()
 end
 
 function Game:keyPressed(key, down)
-  print(key)
   if key == 'right' then Character:moveRight(down) end
   if key == 'left' then Character:moveLeft(down) end
   if key == 'up' then Character:jump(down) end
