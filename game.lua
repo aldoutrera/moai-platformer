@@ -30,13 +30,9 @@ local resource_definitions = {
     width = 544, height = 160,
   },
   foreground_trees = {
-    type = RESOURCE_TYPE_TILED_IMAGE,
+    type = RESOURCE_TYPE_IMAGE,
     fileName = 'images/parallax-mountain-foreground-trees.png',
-    tileMapSize = { 1, 1 },
-    repeatable = {
-      x = true,
-      y = false,
-    },
+    width = 544, height = 160,
   },
   character = {
     type = RESOURCE_TYPE_TILED_IMAGE,
